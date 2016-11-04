@@ -11,7 +11,6 @@ Flask==0.10.1
 functools32==3.2.3.post1
 geoip2==2.2.0
 gnureadline==6.3.3
-guppy==0.1.10
 ipaddr==2.1.11
 ipython==3.2.0
 itsdangerous==0.24

@@ -13,6 +13,7 @@ intaractive_unitx = Example(is_intaractive_run=True)
 io_unitx = Example(is_intaractive_run=False)
 tmp_folder = './static/tmp/'
 textarea_db = tmp_folder + 'tmp_textarea.txt'
+decoding_code = 'utf-8'
 
 def run_unitx(code):
     # TODO(Tasuku): stand in a line
@@ -20,23 +21,29 @@ def run_unitx(code):
     stderr_path = tmp_folder + 'stderr_unitx.txt'
     if os.path.exists(stdout_path): os.remove(stdout_path)
     if os.path.exists(stderr_path): os.remove(stderr_path)
+    code = code.replace('\r', '')
 
-    sys.stdout = open(stdout_path,"w")
-    sys.stderr = open(stderr_path,"w")
-    with open(textarea_db, 'w') as wf: wf.write(code)
+    import codecs
+    sys.stdout = codecs.open(stdout_path,'w', decoding_code)
+    sys.stderr = codecs.open(stderr_path,'w', decoding_code)
+    with open(textarea_db,'w') as wf: wf.write(code.encode(decoding_code))
     io_unitx.eat_code(textarea_db)
     sys.stdout.close()
     sys.stderr.close()
     sys.stdout = sys.__stdout__
     sys.stderr = sys.__stderr__
     if os.path.getsize(stdout_path):
-        return open(stdout_path,"r").read()
+        return open(stdout_path,"r").read().decode(decoding_code)
     if os.path.getsize(stderr_path):
-        return open(stderr_path,"r").read()
+        return open(stderr_path,"r").read().decode(decoding_code)
     return ""
 
 @app.route("/")
 def index():
+    return render_template("unitx_template.html", code="", result="")
+
+@app.route('/run')
+def run_empty():
     return render_template("unitx_template.html", code="", result="")
 
 @app.route('/run', methods=['POST'])
