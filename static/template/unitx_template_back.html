@@ -24,33 +24,6 @@
 
     <pre id="result">{{ result }}<pre>
 
-    <script>
-    $(function() {
-        $(".lined").linedtextarea();
-
-        /*
-        $('#run_button').click(function() {
-            var playing;
-            $.ajax('/run', {
-                type: 'POST',
-                data: {'version': 2, 'body': $('textarea#code').val()},
-                dataType: 'json',
-                success: function(data) {
-                    if (!data) return;
-                    //if (playing != null) playing.Stop();
-                    if (data.Errors) {
-                        error(output, data.Errors);
-                        return;
-                    }
-                    //playing = playback(output, data.Events);
-                },
-                error: function() {
-                    //error(output, 'Error communicating with remote server.');
-                }
-            });
-        });
-        */
-    }); 
 
 
 

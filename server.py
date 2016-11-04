@@ -7,11 +7,11 @@ import os.path
 from flask import Flask, request, url_for, redirect, render_template, send_from_directory
 from unitx.example import Example
 
-app = Flask(__name__, template_folder='./template', static_url_path='')
+app = Flask(__name__, template_folder='./static/template', static_url_path='')
 #app._static_folder='./static'
 intaractive_unitx = Example(is_intaractive_run=True)
 io_unitx = Example(is_intaractive_run=False)
-tmp_folder = 'tmp/'
+tmp_folder = './static/tmp/'
 textarea_db = tmp_folder + 'tmp_textarea.txt'
 
 def run_unitx(code):
@@ -53,5 +53,5 @@ def do_static(filepath):
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    #app.run(host='localhost', port=port, debug=True)
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='localhost', port=port, debug=True)
+    #app.run(host='0.0.0.0', port=port, debug=True)
