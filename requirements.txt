@@ -48,9 +48,7 @@ sympy==0.7.6
 terminado==0.5
 tornado==4.2
 Twisted==13.2.0
-UnitX==0.7.0
 Werkzeug==0.11.3
-worldmap==0.0.1
 wxPython==3.0.2.0
 wxPython-common==3.0.2.0
 xattr==0.6.4
