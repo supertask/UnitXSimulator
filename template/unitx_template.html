@@ -1,0 +1,61 @@
+<html>
+<head>
+	<title>UnitX simulator</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="js/jquery-linedtextarea.js"></script>
+	<link href="css/jquery-linedtextarea.css" type="text/css" rel="stylesheet" />
+	<link href="css/style.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <h1>UnitX simulator</h1>
+
+    <form id="uploadForm" action="/run" method="post">
+        <button type="submit" name="run_code">RUN</button>
+        <textarea type="text" name="code" id="code" class="lined" rows="10" cols="60">{{ code }}</textarea>
+    </form>
+    <!--<textarea itemprop="description" id="code" class="lined" name="code"></textarea>-->
+        <!--
+        <form id="uploadForm" action="/run" method="post">
+            <textarea name="text" id="code" rows="10" cols="60"></textarea>
+            <input type="submit" name="run_code" value="run" />
+        </form>
+        -->
+    <!--<button type="submit" id="run_button">Run</button>-->
+
+    <pre id="result">{{ result }}<pre>
+
+    <script>
+    $(function() {
+        $(".lined").linedtextarea();
+
+        /*
+        $('#run_button').click(function() {
+            var playing;
+            $.ajax('/run', {
+                type: 'POST',
+                data: {'version': 2, 'body': $('textarea#code').val()},
+                dataType: 'json',
+                success: function(data) {
+                    if (!data) return;
+                    //if (playing != null) playing.Stop();
+                    if (data.Errors) {
+                        error(output, data.Errors);
+                        return;
+                    }
+                    //playing = playback(output, data.Events);
+                },
+                error: function() {
+                    //error(output, 'Error communicating with remote server.');
+                }
+            });
+        });
+        */
+    }); 
+
+
+
+    </script>
+
+
+</body>
+</html>
