@@ -1,7 +1,0 @@
-free_mon: 08:30-12:00{Asia_Tokyo}
-free_tue: 08:30-12:00{Asia_Tokyo}
-free_wed: 14:00-15:00{Asia_Tokyo}
-free_thu: 08:30-12:00{Asia_Tokyo}
-free_fri: 08:30-12:00{Asia_Tokyo}
-free_sat: 14:00-15:30{Asia_Tokyo}
-free_sun: 14:00-15:30{Asia_Tokyo}

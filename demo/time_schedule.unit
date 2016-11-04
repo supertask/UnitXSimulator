@@ -1,5 +1,5 @@
 /*
- * Time schedule converter
+ * A time schedule converter
  */
 >> free_mon = "16:30-20:0"{US_Pacific->Asia_Tokyo}
 >> free_tue = "16:30-20:0"{US_Pacific->Asia_Tokyo}
