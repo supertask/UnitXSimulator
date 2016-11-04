@@ -10,10 +10,9 @@
     box-shadow: none;
 }
 
-textarea, .lineno {
+.lined, .lineno {
     font-family: Menlo, monospace !important;
     font-size: 16px !important;
-    vertical-align: bottom !important;
 }
 
 .linedwrap, .codelines, .lines {

@@ -1,0 +1,6 @@
+/*
+ * A simple unit converter
+ */
+rep i,5 {
+    print i{km->m}
+}

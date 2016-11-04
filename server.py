@@ -8,12 +8,13 @@ from flask import Flask, request, url_for, redirect, render_template, send_from_
 from unitx.example import Example
 
 app = Flask(__name__, template_folder='./static/template', static_url_path='')
-#app._static_folder='./static'
 intaractive_unitx = Example(is_intaractive_run=True)
 io_unitx = Example(is_intaractive_run=False)
-tmp_folder = './static/tmp/'
+tmp_folder = './tmp/'
 textarea_db = tmp_folder + 'tmp_textarea.txt'
 decoding_code = 'utf-8'
+default_sample_name = 'unit_converter'
+index_template = 'unitx_template.html'
 
 def run_unitx(code):
     # TODO(Tasuku): stand in a line
@@ -36,21 +37,47 @@ def run_unitx(code):
         return open(stdout_path,"r").read().decode(decoding_code)
     if os.path.getsize(stderr_path):
         return open(stderr_path,"r").read().decode(decoding_code)
-    return ""
+    return ''
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
-    return render_template("unitx_template.html", code="", result="")
+    print "normal or GET!!"
+    if request.args.get('name'):
+        selected_name = request.args.get('name')
+        unitx_code = get_source_code(selected_name)
+        return render_template(index_template,
+            code = unitx_code,
+            selected_name = selected_name,
+            result = '')
+    else:
+        return render_template(index_template,
+            code=get_source_code(default_sample_name),
+            selected_name=default_sample_name,
+            result='')
+    """
+    elif request.args.get('about'):
+        return render_template(index_template,
+            code = 'about()',
+            selected_name = default_sample_name,
+            result = about_unitx)
+    """
+        
 
-@app.route('/run')
-def run_empty():
-    return render_template("unitx_template.html", code="", result="")
-
-@app.route('/run', methods=['POST'])
+@app.route('/', methods=['POST','GET'])
 def run():
+    print "POST, GET!!!!!!!"
     unitx_code = request.form['code']   
     res = run_unitx(unitx_code)
-    return render_template("unitx_template.html", code=unitx_code, result=res)
+    return render_template(index_template,
+        code=unitx_code,
+        selected_name=request.args.get('name'),
+        result=res)
+
+def get_source_code(program_name):
+    try:
+        return open('%s/%s.unit' % ('demo', program_name), 'r').read()
+    except IOError:
+        print 'Wrong query.'
 
 
 @app.route('/static/<path:filepath>')

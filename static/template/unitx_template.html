@@ -15,17 +15,57 @@
 
 <body>
 
-    <form id="uploadForm" action="/run" method="post">
+    <form id="uploadForm" action="/?name={{selected_name}}" method="post">
         <nav class="navbar navbar-light bg-faded">
-            <a class="navbar-brand" href="#">
+            <!-- Title -->
+            <a class="navbar-brand" href="#" style="margin-right: 30px;">
                 <img src="img/unit.png" width="30" height="30" class="d-inline-block align-top" alt="UnitX logo">
                 UnitX Simulator
             </a>
-            <button type="submit" name="run_code" class="btn btn-primary">RUN</button>
-            <a class="btn btn-primary" href="http://supertask.jp" role="button" target='_blank'>Doc</a>
+
+            <!-- Program buttons -->
+            <span class="input-group-btn float-xs-left">
+                {% set sample_programs = {
+                    'unit_converter': 'Unit converter',
+                    'time_schedule': 'Time schedule',
+                    'currency_converter': 'Currency converter'
+                }%}
+
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ sample_programs[selected_name] }}</button>
+
+                <div class="dropdown-menu">
+                {% for name,title in sample_programs.items() -%}
+                    {% if name == selected_name %}
+                        <a class="dropdown-item active" href="/?name={{ name }}">{{ title }}</a>
+                    {% else %}
+                        <a class="dropdown-item" href="/?name={{ name }}">{{ title }}</a>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <button type="submit" name="run_code" class="btn btn-primary">Run</button>
+            </span>
+
+            <!-- Right -->
+            <span class="float-xs-right">
+                <!--<a class="btn btn-primary" href="/?about=52" role="button">About</a>-->
+                <button type="button" id="about" class="btn btn-primary" >About</button>
+            </span>
         </nav>
-        <textarea type="text" name="code" class="lined" rows="14" style="width: 100%; ">{{code}}</textarea>
+        <textarea type="text" name="code" class="lined" rows="14" style="width: 100%;">{{code}}</textarea>
         <pre id="result">{{result}}</pre>
+        <div id="about_unitx" style="display:none; background-color: rgb(255, 255, 221); padding: 30px;">
+        <div style="width: 50%;">
+            <h4>The UnitX Simulator</h4>
+            <p>The UnitX Simulator is a web service that runs UnitX language. The service receives a UnitX program, runs, the program on the Heroku, then returns the output. However, there is a time lag.</p>
+            <p>The UnitX still have some bugs which make probably you upset. 
+            Please send me pull requests if you felt mad into <a href="http://github.com/supertask/UnitX" target='_blank'>"https://github.com/supertask/UnitX/pulls"</a>. And enjoy UnitX!!</p>
+            <h6>Links of UnitX Simulator and UnitX</h6>
+            <p>
+                <a href="http://github.com/supertask/UnitX" target='_blank'>http://github.com/supertask/UnitX</a><br />
+                <a href="http://github.com/supertask/UnitXSimulator" target='_blank'>http://github.com/supertask/UnitXSimulator</a><br />
+            </p>
+        </div>
+</div>
     </form>
 
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
@@ -38,28 +78,31 @@
     <script>
     $(function() {
         $(".lined").linedtextarea();
-        /*
-        $('#run_button').click(function() {
-            var playing;
-            $.ajax('/run', {
-                type: 'POST',
-                data: $('textarea#code').val(),
-                dataType: 'json',
-                success: function(data) {
-                    if (!data) return;
-                    //if (playing != null) playing.Stop();
-                    if (data.Errors) {
-                        error(output, data.Errors);
-                        return;
-                    }
-                    //playing = playback(output, data.Events);
-                },
-                error: function() {
-                    //error(output, 'Error communicating with remote server.');
-                }
-            });
+
+        var isClicked=false;
+        var ex_result="";
+
+        function show_about() {
+            $(".linedwrap").show();
+            $("#result").show();
+            $("div#about_unitx").hide();
+            isClicked = false;
+        }
+
+        $("button#about").click(function(){
+            if (isClicked) {
+                show_about();
+            }
+            else {
+                $(".linedwrap").hide();
+                $('#result').hide();
+                $("div#about_unitx").show();
+                $("div#about_unitx").click(function() {
+                    show_about();
+                });
+                isClicked = true;
+            }
         });
-        */
     }); 
     </script>
 

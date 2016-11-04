@@ -1,0 +1,10 @@
+/*
+ * Time schedule converter
+ */
+>> free_mon = "16:30-20:0"{US_Pacific->Asia_Tokyo}
+>> free_tue = "16:30-20:0"{US_Pacific->Asia_Tokyo}
+>> free_wed = "22:0-23:0"{US_Pacific->Asia_Tokyo}
+>> free_thu = "16:30-20:0"{US_Pacific->Asia_Tokyo}
+>> free_fri = "16:30-20:0"{US_Pacific->Asia_Tokyo}
+>> free_sat = "22:00-23:30"{US_Pacific->Asia_Tokyo}
+>> free_sun = "22:00-23:30"{US_Pacific->Asia_Tokyo}
